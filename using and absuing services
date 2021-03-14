@@ -1,0 +1,43 @@
+1. to start ,stop,restart the service 
+type: service serviceName start|stop|restart
+
+2.CREATING AN HTTP WEB SERVER WITH THE APACHE WEB SERVER
+create your file of html in /var/www/html/filename and then copy your ip address/filename and seacrh this on web browser
+
+
+3. ssh remote access to rasberry pi camera
+4.mysql server database
+-to start the sql we need to mkdir in /var/run/mysqld  and then make a file in var/run/mysqld/.sock and then restart the mysql
+-to start sql type : 'sudo mysql'
+- to show data base files type: ' SHOW DATABASES;  '
+-to create file type: CREATE DATABASE filename; '
+-to select or workon database file type: ' USE filename; '
+-to create table in databasefile 
+type: select the file using USE command and then type: create table tablename and press enter
+like:
+//creating table in database file
+      table employees(
+    -> ID INT AUTO_INCREMENT PRIMARY KEY,
+    -> user_name VARCHAR(10) NOT NULL,
+    -> user_email VARCHAR(30) NOT NULL,
+    -> user_password CHAR(60) NOT NULL,
+    -> user_create_at TIMESTAMP
+     );
+
+-to see the what table contain type: ' explain tablename'
+-to insert data in table type: insert into tablename(filed1,filed2,filed3 and so on) VALUE('value1,"value2",value3 );
+like: insert into employees(user_name,user_email,user_password) VALUE('name1',"xyz34@gmail.com",SHA("funnyBunny"));
+
+note: SHA("funnyBunny")  SHA=is hash passwd it convert the passwd in hash
+
+--to see the table content type : select * from tablename  
+note: we use '*' to see all contents
+
+--to see total tables in databse file type: show tables;
+
+--to delete database file type: ' DROP DATABASE FILENAME'
+
+
+
+5.postgre databasecreate 
+

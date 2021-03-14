@@ -1,0 +1,127 @@
+1.to see your system events happened in past we can see those events details using locate /rsyslog
+2.we can config the logs to edit configuration file 
+type: nano etc/rysyslog.conf
+3.Finding the logging rules in rsyslog.conf
+type: nano etc/rysyslog.conf and get info from rules section 
+note:
+The rsyslog rules determine what kind of information is logged, what programs have
+their messages logged, and where that log is stored. As a hacker, this allows you to find
+out what is being logged and where those logs are written so you can delete or obscure
+them.
+
+Each line is a separate logging rule that says what messages are logged and where
+they’re logged to. The basic format for these rules is as follows:
+facility.priority action
+The facility keyword references the program, such as mail, kernel, or lpr, whose
+messages are being logged. The priority keyword determines what kind of messages to
+log for that program. The action keyword, on the far right, references the location where
+the log will be sent. Let’s look at each section more closely, beginning with the facility
+keyword, which refers to whatever software is generating the log, whether that’s the
+kernel, the mail system, or the user.
+
+The following is a list of valid codes that can be used in place of the facility keyword in
+our configuration file rules:
+auth/authpriv Security/authorization messages
+cron Clock daemons
+daemon Other daemons
+
+
+kern Kernel messages
+lpr Printing system
+mail Mail system
+user Generic userlevel
+messages
+An asterisk wildcard (*) in place of a word refers to all facilities. You can select more
+than one facility by listing them separated by a comma.
+The priority tells the system what kinds of messages to log. Codes are listed from lowest
+priority, starting at debug, to highest priority, ending at panic. If the priority is *,
+messages of all priorities are logged. When you specify a priority, messages of that
+priority and higher are logged. For instance, if you specify a priority code of alert, the
+system will log messages classified as alert and higher priority, but it won’t log
+messages marked as crit or any priority lower than alert.
+Here’s the full list of valid codes for priority:
+debug
+info
+notice
+warning
+warn
+error
+err
+crit
+alert
+emerg
+panic
+
+
+
+The codes warning, warn, error, err, emerg, and panic have all been deprecated and should
+not be used.
+The action is usually a filename and location where the logs should be sent. Note that
+generally, log files are sent to the /var/log directory with a filename that describes the
+facility that generated them, such as auth. This means, for example, that logs generated
+by the auth facility would be sent to /var/log.auth.log.
+Let’s look at some examples of log rules:
+mail.* /var/log/mail
+This example will log mail events of all (*) priorities to /var/log/mail.
+kern.crit /var/log/kernel
+This example will log kernel events of critical (crit) priority or higher to
+/var/log/kernel.
+*.emerg *
+
+This last example will log all events of the emergency (emerg) priority to all loggedon
+users. With these rules, the hacker can determine where the log files are located, change
+the priorities, or even disable specific logging rules.
+
+
+******AUTOMATICALLY CLEANING UP LOGS WITH LOGROTATE*******
+
+Log files take up space, so if you don’t delete them periodically, they will eventually fill
+your entire hard drive. On the other hand, if you delete your log files too frequently, you
+won’t have logs to investigate at some future point in time. You can use logrotate to
+determine the balance between these opposing requirements by rotating your logs.
+Log rotation is the process of regularly archiving log files by moving them to some
+other location, leaving you with a fresh log file. That archived location will then get
+cleaned up after a specified period of time.
+Your system is already rotating log files using a cron job that employs the logrotate
+utility. You can configure the logrotate utility to choose the regularity of your log
+rotation with the /etc/logrotate.conf text file. Let’s open it with a text editor and take a
+look:
+kali >leafpad /etc/logrotate.conf
+
+*****removing evidence ****************
+1.using 'shred' command 
+
+note:
+A better and more secure solution is to shred the log files. With other file deletion
+systems, a skilled investigator is still able to recover the deleted files, but suppose there
+was a way to delete the file and overwrite it several times, making it much harder to
+recover. Lucky for us, Linux has a builtin
+command, appropriately named shred, for
+just this purpose.
+
+like:shred -f -n 10 /var/log/auth.log.*
+
+details:
+Two useful options to include are the -f option, which changes the permissions on the
+files to allow overwriting if a permission change is necessary, and the –n option, which
+lets you choose how many times to overwrite the files. As an example, we’ll shred the
+log files in /var/log/auth.log 10 times using the above command
+
+******Disabling Logging****
+
+Another option for covering your tracks is to simply disable logging. When a hacker
+takes control of a system, they could immediately disable logging to prevent the system
+from keeping track of their activities. This, of course, requires root privileges.
+To disable all logging, the hacker could simply stop the rsyslog daemon. Stopping any
+service in Linux uses the same syntax, shown here (you’ll see more on this in Chapter
+
+12):service servicename start|stop|restart
+
+So, to stop the logging daemon, you could simply enter the following command:
+
+kali >service rsyslog stop
+
+Now Linux will stop generating any log files until the service is restarted, enabling you
+to operate without leaving behind any evidence in the log files!
+
+

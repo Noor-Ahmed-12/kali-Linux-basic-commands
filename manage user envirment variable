@@ -1,0 +1,60 @@
+1. to see the environment variables type: 'env'
+
+2.to see all variables included shell var,local var,users var etc. we use set command
+like: set | more (more to see commands line by line)
+
+3. to see any specific var use grep
+like: ' set | grep HISTSIZE ' (HISTSIZE== the max capacity to store our command history default is 1k)
+
+4. to change the var size like : HISTSIZE=0 (now it won't store any command history) we
+ remove this when we dont wanna to see our history to others.
+  note: it will reset to default value when you leave
+
+5. to make chnages permanently we use 'export' command.but first save the chnages in file
+to undo the chnages
+
+like: HISTSIZE=0
+      export HISTSIZE
+now it is permenet change
+
+to reset simple enter:
+HISTSIZE=1000
+export HISTSIZE
+       
+note: to make chnges make sure you first save the default context in any file 
+like: echo $HISTSIZE > ~/test.txt   (we use echo $var)
+
+note2:to save all default var content tye:
+  '  set > filename '  or set > ~/vardata.txt 
+
+6. chnging in your shell prompt
+you shell look like: username@hostname:currenr directory
+**you can chnage username and hostname and the directory 
+we edit the 'PS1' var which stored this information
+****exmaple:
+to see "worl'd best hacker: #'
+we write: PS1="world's best hacker : # '
+than write : export PS1
+and to permant chnage we export the var PS1
+
+7. to see your path where the ls,cat and more command exist.when we write ls the system find ls 
+in /usr/local/bin or usr/local/sbin directories 
+type: echo $PATH
+
+8.to adding in PATH we write: PATH=$PATH:/root/newHackingtool
+suppose you download new hacking tool in any particluar directory to use that tool you have 
+navigate that directory which is inconvinence to use.. so to use that tool from any directory
+we add the path of that tool in our previous path
+like : PATH=$PATH:/root/newHackingtool 
+****ALter***
+make sure you save previous path before any changes. if bymistake you repalce the existing path 
+with new one than your commands wouldn't be work anymore like ls,cat etc..
+
+
+9. user-defind variables... use when you tired to write long commands
+   to create just type VarName and your command like this: myNewVar="your are hacked"
+10. to remove any var type: unset variableName 
+like: unset myNewVar
+
+
+

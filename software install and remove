@@ -1,0 +1,25 @@
+1.to instal software or package we use 'apt'(advanced packing tool'
+we can install any software by using 'apt-get' command
+2. searching for a package ( whether the desire package already install in repisotary'
+we can check by using 'apt-cache search keyword '
+To install a piece of software from your operating system’s default repository in the
+terminal, use the apt-get command, followed by the keyword install and then the name
+of the package you want to install. The syntax looks like this:
+aptget
+like: apt-get install firefox (to install firefox)
+4.Removing Software
+When removing software, use apt-get with the remove option, followed by the name of the
+software to remove like : apt-get remove softwareName(firefox)
+5. when we install any sofftware it intsall all config files but if we remove the software the config file doesn't removed so
+to remove software and all config file we use command like: apt-get purge softwareName
+6.Updating all outofdate
+packages with apt-get update like : apt-get update (update all software that repository contains)
+7.upgrade the software
+Because upgrading
+your packages may make changes to your software, you must be logged in as root or use
+the sudo command before entering apt-get upgrad like
+7.GUI installer 'synaptic tool' which intall packages via GUI
+first install tool like: apt-get install synaptic
+8.installing software from git
+like: git clone http://git.........(path of software)
+it will installs all data and files in your system

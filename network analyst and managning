@@ -1,0 +1,24 @@
+1.ipconfig (used to get info about network)
+2.iwconfig (used to get info of wireless device)
+3.ifconfig(used to change the ip address)
+for ifconfig (write ifconfig interface newIPaddress like) ifconfig eth0 192.158.162.115
+also can change network and broadcast address using ifconfig
+4.likke: ifconfig eth0 Newipaddr netmask 255.255.0.0 broadcast 192.168.1.255
+5. to change the mac address using 'ifconfig' like:
+
+start:    ifconfig eth0 down
+          ifconfig eth0 hw ether 00:11:22:33:44:55  (new mac addr)
+end:      ifconfig eth0 up
+6.assigning ipaddress from DHCP
+like:   dhclient eth0   (eth0=interface)  it assgn new ip,broadcast and netmask addrs
+7.Using dig and its ns option to get information on a domain nameserver
+like: dig hackernet.com ns (ns=name server)
+8.Using dig and its mx option to get information on a domain mail exchange
+server like: dig gmail.com mx (mx=mail xchnage server)
+9.In some cases, you may want to use another DNS server. To do so, you’ll edit a plaintext
+file named ' /etc/resolv.conf ' on the system.
+like: vim /etc/resolv.conf (vim=text editor and the DNS file path=/etc/resolv.conf )
+now you can add any DNS server lke google DNS write: ' nameserver 8.8.8.8 '
+**
+--Changing the resolv.conf file to specify Google’s DNS server
+you can also used directly like: echo 'nameserver 8.8.8.8 ' > /etc/resolv.conf 

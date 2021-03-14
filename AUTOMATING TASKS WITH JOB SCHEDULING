@@ -1,0 +1,124 @@
+we use cron daemon and crontab for scheduling at regular basis
+
+
+Time Representations for Use in the crontab
+1. minute 0-59
+2. hour 0-23
+3. day of the month 1-31
+4. month 1-12
+5. day of the week 0-7
+
+
+--The format for scheduling commands
+M H  DOM  MON DOW USER   COMMAND
+30 2  *    *  15  root  /root/myscanningscript
+
+
+To edit crontab, you can run the crontab command followed by the -e (edit) option:
+kali >crontab -e
+
+
+Another option, and often a better one for the newcomer to Linux, is to open crontab
+directly in your favorite text editor, which you can do like so:
+kali >leafpad /etc/crontab
+
+
+examples:
+To create a job, you simply need to edit the crontab file by adding a line in the
+prescribed format. So, say you wanted to create a regular backup job using a user
+account named “backup.” You would write a script for backing up the system and save
+it as systembackup.sh in the /bin directory, then schedule this backup to run every
+Saturday night/Sunday morning at 2 AM by adding the following line to crontab:
+00 2 * * 0 backup /bin/systembackup.sh
+Note that the * wildcard is used to indicate “any,” and using it in place of a digit for the
+day of the month, month, or day of the week is read as “all” days or months. If you read
+across this line, it says
+1. At the top of the hour (00),
+2. Of the second hour (2),
+3. Of any day of the month (*),
+4. Of any month (*),
+5. On Sunday (0),
+As the backup user,
+7. Execute the script at /bin/systembackup.sh.
+The cron daemon will then execute that script every Sunday morning at 2 AM, every
+month.
+
+
+
+example2:
+If you only wanted the backup to run on the 15th and 30th of every month, regardless of
+what days of the week those dates fell on, you could revise the entry in crontab to
+appear as follows:
+00 2 15,30 * * backup /root/systembackup.sh
+Note that the day of the month (DOM) field now has 15,30. This tells the system to run
+the script only on the 15th and 30th of every month, so around every two weeks. When
+you want to specify multiple days, hours, or months, you need to list them separated by
+a comma, as we did here.
+
+example3:
+Next, let’s assume the company requires you to be especially vigilant with its backups.
+It can’t afford to lose even a day of data in the event of power outage or system crash.
+You would then need to back up the data every weeknight by adding the following line:
+00 23 * * 15
+backup /root/systembackup.sh
+This job would run at 11 PM (hour 23), every day of the month, every month, but only
+on Monday through Friday (days 1–5). Especially note that we designated the days
+Monday through Friday by providing an interval of days (1-5) separated by a dash (-).
+This could have also been designated as 1,2,3,4,5; either way works perfectly fine.
+
+
+
+****crontab Shortcuts
+The crontab file has some builtin
+shortcuts you can use instead of a specifying the
+time, day, and month every time. These include the following:
+@yearly
+@annually
+@monthly
+@weekly
+@daily
+@midnight
+@noon
+@reboot
+So, if you wanted the MySQL scanner to run every night at midnight, you could add the
+following line to the crontab file:
+@midnight user /usr/share/MySQLsscanner.sh
+
+
+
+USING RC SCRIPTS TO RUN JOBS AT STARTUP
+rc where linux exexcute the scripts when it boot the system.This
+daemon then begins to run a number of scripts found in /etc/init.d/rc.
+
+Adding Services to rc.d
+You can add services for the rc.d script to run at startup using the update-rc.d command.
+This command enables you to add or remove services from the rc.d script. The syntax
+for update-rc.d is straightforward; you simply list the command followed by the name of
+the script and then the action to perform, like so:
+kali >update-rc.d <name of the script or service>
+<remove|defaults|disable|enable>
+As an example of how you can use update-rc.d, let’s assume you always want the
+PostgreSQL database to start upon system boot so that your Metasploit framework can
+use it to store pentesting and hacking results. You would use update-rc.d to add a line to
+your rc.d script to have it up and running every time you boot your system.
+
+
+
+This output tells us that the only process ps found running for PostgreSQL was the very
+command we ran looking for it, so there is no PostgreSQL database running on this
+system presently.
+Now, let’s update our rc.d to have PostgreSQL run automatically at bootup:
+kali >update-rc.d postgresql defaults
+This adds the line to the rc.d file. You need to reboot the system for the change to take
+place. Once you’ve done that, let’s again use the ps command with grep to look for a
+PostgreSQL process:
+kali >ps aux | grep postgresql
+postgresql 757 0.0 0.1 287636 25180 ? S March 14
+0.00 /usr/lib/postgresql/9.6/bin/postgresql D
+/var/lib/postgresql/9.6/main
+c
+config_file=/etc/postgresql/9.6/main/postgresql.conf
+root 3876 0.0 0.0 12720 964pts/1 S+ 14.24 0.00 grep postgresql
+As you can see, PostgreSQL is running without you ever entering any commands
+manually. It automatically starts when your system boots up, ready and waiting to be
+used with your Metasploit! 

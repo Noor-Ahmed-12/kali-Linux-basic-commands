@@ -1,0 +1,75 @@
+1.all device files are stored in /dev directory
+2. to see all partitions of hard drive type: fdisk -l
+3. linux use ext1,ext2,ext3,etx4 file system(ext = extended)
+4.Character and Block Devices
+Something else to note about the naming of device files in the /dev directory is that the
+first position contains either c or b. You can see this in Listing 101
+at the start of most
+of the entries, and it looks something like this:
+crw1
+root root 10,175 May 16 12:44 agpgart
+These letters represent the two ways that devices transfer data in and out. The c stands
+for character, and these devices are known, as you might expect, as character devices.
+External devices that interact with the system by sending and receiving data character
+by character, such as mice or keyboards, are character devices.
+The b stands for the second type: block devices. They communicate in blocks of data
+(multiple bytes at a time) and include devices like hard drives and DVD drives. These
+devices require higherspeed
+data throughput and therefore send and receive data in
+blocks (many characters or bytes at a time). Once you know whether a device is a
+character or block device, you can easily get more information about it, as you’ll see
+next.
+
+5.list Block Devices and Information with lsblk
+type: lsblk (lsblk=list block)
+
+
+6.Mounting Storage Devices Yourself
+In some versions of Linux, you need to mount a drive manually in order to access its
+content, so this is a skill worth learning. To mount a drive on the filesystem, use the
+mount command. The mount point for the device should be an empty directory; if you
+mount a device on a directory that has subdirectories and files, the mounted device will
+cover the contents of the directory, making them invisible and unavailable. So, to
+mount the new hard drive sdb1 at the /mnt directory, you would enter the following:
+kali >mount /dev/sdb1 /mnt
+That hard drive should then be available for access. If you want to mount the flash drive
+sdc1 at the /media directory, you would enter this:
+
+kali >mount /dev/sdc1 /media
+
+The filesystems that are mounted on a system are kept in a file at /etc/fstab (short for
+filesystem table), which is read by the system at every bootup
+
+
+
+7.Unmounting with umount
+If you’re coming from a Mac or Windows background, you’ve probably unmounted a
+drive without knowing it. Before you remove a flash drive from your system, you “eject”
+it to keep from causing damage to the files stored on the device. Eject is just another
+word for unmount.
+Similar to the mount command, you can unmount a second hard drive by entering the
+umount command followed by the file entry of the device in the /dev directory, such as
+/dev/sdb. Note that the command is not spelled unmount but rather umount (no n).
+
+kali >umount /dev/sdb1
+
+You cannot unmount a device that is busy, so if the system is reading or writing to the
+device, you will just receive an error.
+
+
+8.Getting information on disks and mounted devices with df
+type: df (disk free) 
+it give you the basic info about the disk 
+-to check for particular disk just give the path of disk
+like : df  /dev/sda1
+
+9. checking for errors
+type: fsck (fsck=filesystem check)
+****alert
+make sure you unmount the device before checking errors using 'umount' command
+type: umount devicepth
+
+after umount you can check error and fix errors
+type : fsck -p /dev/sbd1  (p=problem errors thaN SOLVE)
+
+

@@ -1,0 +1,99 @@
+******* tarring files together********
+1.to create a tar file(which contains files)
+tye: tar -cvf newfilename.tar files      
+like: tar -cvf newarchieve.tar f1.txt f2.txt
+note: 
+tar = trap archive
+c=create
+v=verbose
+f=to write
+
+2. to see the content of tar file without extracting
+
+tye: tar -tvf tarfilename
+like: tar -tvf textfile.tar
+note:
+t= content of tar file
+
+3. to extract tar files
+type: tar -xvf filename.tar
+like: tar -xvf textfile.tar
+note:
+x=extract
+it will show the content on the bash.if you want to extract file silenly then remove -v(verbose) 
+like: tar -xf textfile.tar.
+***warning: if tar containg files already exist then it will replace that files with new one
+
+*********************************************************************************************************************
+
+********* compressing file***********
+
+to reduce the size of large files we compress that files to send easily
+we have 3 diff command to compress the files
+
+1.gzip, which uses the extension .tar.gz or .tgz
+2.bzip2, which uses the extension .tar.bz2
+3.compress, which uses the extension .tar.z
+
+note:
+In general, 'compress is the fastest', but the resultant files are larger; bzip2 is the slowest,
+but the resultant files are the smallest; and gzip falls somewhere in between.
+-compress is commonly leat used
+
+1.using gzip(GNU zip)
+-to compress the gzip 
+type: gzip filename.*   (* means that any file that has same namw will be compress) 
+
+-to uncompres the file
+type:gunzip filename.*  (gunzip=G-unzip)
+
+2. using bzip2
+-to compress 
+type: bzip2 filename.*
+
+-to uncompress 
+type:bunzip2 filename.*
+
+
+3. using compress
+-to compress
+type: compress filename.*
+
+-to uncompress
+type: uncompress filename.*
+
+*********************************************************************************************************************
+CREATING BIT-BY-BIT OR PHYSICAL COPIES OF STORAGE DEVICES
+
+command we use
+The basic syntax for the dd command is as follows:
+'dd if=inputfile of=outputfile'
+note:
+if=designation of device
+of=where the data store(path)
+
+So, if you wanted to make a physical copy of your flash drive, assuming the flash drive is
+sdb (we’ll discuss this designation more in Chapter 10), you would enter the following:
+ 'dd if=/dev/sdb of=/root/flashcopy'
+
+we have different useful commands that we can use with dd command
+type: ' dd if=/dev/media of=/root/flashcopy bs=4096 conv:noerror '
+note:
+bs=block size of data(4kb)
+noerror = continue copy data even any error occur
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

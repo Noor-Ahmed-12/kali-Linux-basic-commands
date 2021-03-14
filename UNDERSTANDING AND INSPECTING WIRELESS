@@ -1,0 +1,107 @@
+1.Basic Wireless Commands
+
+   -ifconfig(which lists each activated network interface on your system along with some basic
+statistics, including (most importantly) the IP address of each interface)
+
+	-iwconfig  (If you just want to see your WiFi
+interfaces and their statistics, Linux has a specific
+command that’s similar to ifconfig but dedicated to wireless.)
+
+	 -If you are not certain which WiFi
+	AP you want to connect to, you can see all the
+	wireless access points your network card can reach using the iwlist command.
+	
+	command:iwlist interface action 
+	like: iwlist wlan0 scan
+
+	-The nmcli command can be used to view the WiFi
+	APs near you and their key data, as
+	we did with iwlist, but this command gives us a little more information. We use it in the
+	format nmcli dev networktype, where dev is short for devices and the type (in this case) is
+	wifi, like so:
+	command:nmcli dev wifi
+
+	-addition to displaying the WiFi and connected to API
+	APs within range and key data about them,
+	including the SSID, the mode, the channel, the rate of transfer, the signal strength, and
+	the security protocols enabled on the device, nmcli can be used connect to APs. The
+	syntax to connect to an AP is as follows:
+	
+	command: nmcli dev wifi connect AP-SSID password APpassword
+        like:nmcli dev wifi connect Hackers-Arise password 12345678
+
+
+2.Wi-Fi Recon with aircrack-ng
+
+To use these tools effectively, you first need to put your wireless network card into
+monitor mode so that the card can see all the traffic passing its way. Normally, a
+network card captures only traffic destined specifically for that card. Monitor mode is
+similar to promiscuous mode on wired network cards.
+To put your wireless network card in monitor mode, use the airmon-ng command from
+the aircrackng
+suite. The syntax for this command is simple:
+  ' airmonng start|stop|restart interface '
+
+-So, if you want to put your wireless network card (designated wlan0) into monitor
+mode, you would enter the following:
+kali >airmon-ng start wlan0
+
+wireless passwd creacking which we will learn later 
+
+****************bluetooth device connect and manage*****************
+-to scan the get the device info we use 'bluez' tool 
+
+BlueZ has a number of simple tools we can use to manage and scan Bluetooth devices,
+including the following:
+hciconfig This tool operates very similarly to ifconfig in Linux, but for Bluetooth devices.
+As you can see in Listing 141,
+I have used it to bring up the Bluetooth interface and
+query the device for its specs.
+hcitool This inquiry tool can provide us with device name, device ID, device class, and
+device clock information, which enables the devices to work synchronously.
+hcidump This tool enables us to sniff the Bluetooth communication, meaning we can
+capture data sent over the Bluetooth signal.
+
+1.Scanning for a Bluetooth device
+type:' hciconfig '
+
+2. to check the device is enable
+type: hciconfig hci0 up
+
+
+scanning bluetooth with 'hcitool'
+Scanning for Bluetooth devices in discovery mode
+ type: hcitool scan
+
+-Now let’s gather more information about the detected devices with the inquiry function
+inq:
+kali >hcitool inq
+
+******Scanning for Services with sdptool******
+we use service discovery protocol tool.It is also important to note that the
+device does not have to be in discovery mode to be scanned
+
+command:sdptool browse MACaddress
+
+shows me using sdptool to search for services on one of the devices detected
+
+example: sdptool browse 76:6E:46:63:72:66
+note:
+we see that this device supports the ATT
+Protocol, which is the Low Energy Attribute Protocol.
+
+
+
+**********Seeing Whether the Devices Are Reachable with l2ping****************
+Once we’ve gathered the MAC addresses of all nearby devices, we can send out pings to
+these devices, whether they’re in discovery mode or not, to see whether they are in
+reach. This lets us know whether they are active and within range. To send out a ping,
+we use the l2ping command with the following syntax:
+
+commadn: l2ping MACaddress
+
+shows me pinging the Android device discovered in Listing 142.
+example: l2ping 76:6E:46:63:72:66 -c 4
+
+
+

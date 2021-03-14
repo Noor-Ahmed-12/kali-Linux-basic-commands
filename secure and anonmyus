@@ -1,0 +1,66 @@
+************ tor browser****************
+1. To see what hops a packet might make between you and the destination, you can use
+the traceroute command, as shown next. Simply enter traceroute and the destination IP
+address or domain, and the command will send out packets to the destination and trace
+the route of those packets.
+
+kali > ' traceroute google.com'
+
+2. online router system
+“The Onion Router (Tor) Project” in 2002, and it’s now
+available to anyone to use for relatively safe and anonymous navigation on the web.
+-to be anonymus we use tor broswer to access www and here we can also access dark web
+
+
+*********proxy server***************
+
+-to be anonymus we also can use proxy server which send our packet using proxyIP not our IP address
+we have tool 'proxychain' in linux 
+
+-Kali Linux has an excellent proxying tool called proxychains that you can set up to
+obscure your traffic. The syntax for the proxychains command is straightforward, as
+shown here:
+
+'proxychains <the command you want proxied> <arguments>'
+
+The arguments you provide might include an IP address. For example, if you wanted to
+use proxychains to scan a site with nmap anonymously, you would enter the following:
+
+kali >proxychains nmap -sT - Pn <IP address>
+
+This would send the nmap –sS stealth scan command to the given IP address through a
+proxy. The tool then builds the chain of proxies itself, so you don’t have to worry about
+it.
+
+
+we can add our own proxy in etc/proxychain.conf file at the last but if you are using free proxies then its not a good idea 
+
+
+*****************VPN***************
+Some of the best and most popular commercial VPN services, according to CNET, are
+the following:
+IPVanish
+NordVPN
+ExpressVPN
+CyberGhost
+Golden Frog VPN
+Hide My Ass (HMA)
+Private Internet Access
+PureVPN
+TorGuard
+Buffered VPN
+
+One way to prevent that is to use only VPNs that promise not to store or log
+any of this information (and hope they are being truthful). In this way, if someone
+insists that the VPN service provider turn over its data on its users, there is no data.
+
+
+
+********** encrpted emails***************
+One way to prevent eavesdropping on your email is to use encrypted email. 'ProtonMail'
+encrypts your email from end to end or browser to browser
+This
+means that your email is encrypted on ProtonMail servers—even the ProtonMail
+administrators can’t read your email.
+
+

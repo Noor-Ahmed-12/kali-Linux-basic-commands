@@ -1,0 +1,81 @@
+1. to check the version of kernel in your system we have two ways 
+- type: uname -a
+other:  -type: cat /proc/version
+
+
+****************KERNEL TUNING WITH SYSCTL**************
+With the right commands, you can tune your kernel, meaning you can change memory
+allocations, enable networking features, and even harden the kernel against outside
+attacks.
+
+sysctl -a | less  (to view the sysctl file)
+
+
+in systcl
+line net.ipv4.ip_forward = 0 is the kernel parameter that enables the kernel to forward
+on the packets it receives. In other words, the packets it receives, it sends back out. The
+default setting is 0, which means that packet forwarding is disabled.
+To enable IP forwarding, change the 0 to a 1 by entering the following:
+
+sysctl -w net.ipv4.ip_forward=1
+
+note:
+Remember that that sysctl changes take place at runtime but are lost when the system is
+rebooted. To make permanent changes to sysctl, you need to edit configuration file
+/etc/sysctl.conf. Let’s change the way the kernel handles IP forwarding for MITM attacks
+and make this change permanent.
+To enable IP forwarding, open the /etc/sysctl.conf file in any text editor and uncomment
+
+
+**************MANAGING KERNEL MODULES**************
+Linux has at least two ways to manage kernel modules. The older way is to use a group of
+commands built around the insmod suite—insmod stands for insert module and is intended to
+deal with modules. The second way, using the modprobe command, we will employ a little
+later in this chapter. Here, we use the lsmod command from the insmod suite to list the
+installed modules in the kernel:
+
+type: lsmod (list of modules)
+
+note:
+From the insmod suite, we can load or insert a module with insmod and remove a module with
+rmmod, which stands for remove module. These commands are not perfect and may not take
+into account module dependencies, so using them can leave your kernel unstable or
+unusable. As a result, modern distributions of Linux have now added the modprobe
+command, which automatically loads dependencies and makes loading and removing
+kernel modules less risky. We’ll cover modprobe in a moment. First, let’s see how to get more
+information about our modules.
+
+************************Finding More Information with modinfo*******************
+type: modinfo modelname
+like: modinfo bluetooth   (it geive all details of bluetooth)
+
+note:
+Typically, this is useful information when troubleshooting why a particular hardware
+device is not working. Besides noting things like the dependencies, you can get
+information about the version of the module and the version of the kernel the module was
+developed for and then make sure they match the version you are running.
+
+
+***********************************Adding and Removing Modules with modprobe******************************
+-to addd module in kernel 
+type: modprobe -a modulename (a=add)
+
+-to remove the module 
+type: modprobe -r modulename (r=remove)
+
+
+note:
+A major advantage of using modprobe instead of insmod is that modprobe understands
+dependencies, options, and installation and removal procedures and it takes all of these
+into account before making changes. Thus, it is easier and safer to add and remove kernel
+modules with modprobe.
+
+-To test whether the new module loaded properly, you can run the dmesg command, which
+prints out the message buffer from the kernel, and then filter for “video” and look for any
+alerts that would indicate a problem:
+
+command:dmesg | grep video
+
+
+
+

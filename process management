@@ -1,0 +1,64 @@
+1. to see the current process type: ' ps ' ...
+2. to see all process including others users and bg processes type: '  ps aux  '
+3.to see the most resource taker process type: '  top  '
+top update every 10sec 
+4. to search specific command use grep with pipeline like:  ps aux | grep firewall
+5. to change the starting process priority type:  nice -n 10 nameofProcess
+its raange it -20 to 
++ 19.. and zero as default
+6. to chnage the runnnig process priority type: '  renice -10 PID(process ID)..    
+it's range is also -20 to 
++19...
+ 
+7. to kill the process we use ' kill ' command with signal switch and PID
+like: kill -9 6969    -> 9 is the signal number(absolute kill the process)
+comman signals  ->
+1. sighub  1  use to restart the process withs same PID
+2. sigint  2  use to intrept the process
+3. sigquit 3  use to quit the process and save the info in current directoty
+4. sigterm 15  use to terminate the process and it is default signal
+note:   If you don’t know a process’s PID, you can use the killall command to kill the process.
+This command takes the name of the process, instead of the PID, as an argument.
+For example, you could terminate a hypothetical zombieprocess like this:
+5. to run process in background to save time and use multiprocess 
+type: '  & ' in the end of command like:
+leafpad newscript & 
+
+6.Moving a Process to the Foreground
+If you want to move a process running in the background to the foreground, you can
+use the fg (foreground) command. The fg command requires the PID of the process you
+want to return to the foreground, as shown next.
+kali >fg 1234
+If you don’t know the PID, you can use the ps command to find it.
+7. scheduling the processes
+   it use for future or everyday to any work like scaning or etc to specific time 
+   we use two command 1: ' at ' 2: ' crond' ... 
+  syntax:  at timeOfexecutaion 
+  like :  at none or at 7:20pm so many formats
+ time formates: 
+      1. at 7:20pm   (on current day 7:20pm)
+      2. at 7:20pm June 25 
+      3.at noon 
+      4. at noon June 25
+      5. at tomorrow
+      6. at now + 20 minute
+      7. at now + 10 hours
+      8. at now + 5 days
+      9. at now + 3 weeks
+      10. at 7:20pm 06/25/2019
+it is used in deamon--background 'at' and 'crond ' will discuss in coming chapters
+note: 
+When you enter the at daemon with the specified time, at goes into interactive mode
+and you are greeted with an at> prompt. Here is where you enter the command you
+want executed at the specified time:
+kali >at 7:20am
+at >/root/myscanningscript
+
+
+
+SUMMARY
+Managing processes in Linux is a key skill for every Linux user and hacker. You must be
+able to view, find, kill, prioritize, and schedule processes to manage your Linux instance
+optimally. A hacker often will need to find processes on the target they want to kill,
+such as the antivirus software or a firewall. They will also need to manage multiple
+processes in an attack and prioritize them.

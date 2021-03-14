@@ -1,0 +1,195 @@
+You can find a comprehensive list of third­party modules at PyPI (the Python Package
+Index, shown in Figure 17­1) at http://www.pypi.org/.
+
+**Using pip
+Python has a package manager specifically for installing and managing Python
+packages known as pip (Pip Installs Packages).
+
+command:apt-get install pyhton3-pip
+
+Now, to download modules from PyPI, you can simply enter this:
+kali >pip3 install <package name >
+note:
+When you download these packages, they are automatically placed in the
+/usr/local//lib/<python­version>/dist­packages directory
+
+If you aren’t sure where a package
+has been placed on your system (sometimes different distributions of Linux use
+different directories), you can enter pip3 followed by show and the package name, as
+shown here:
+kali >pip3 show pysnmp
+
+
+
+command:python setup.py install
+This will install any unpacked packages that haven’t yet been installed.
+
+
+
+
+
+Installing Third-Party Modules
+To install a third­party module created by another member of the Python community(as opposed to an officially released Python package), you can simply use wget to
+download it from wherever it is being stored online, uncompress the module, and then
+run the python setup.py install command.
+As an example, let’s download and install the Python module for the port­scanning tool
+we used in Chapter 8, nmap, from its online repository at https://xael.org.
+First, we need to download the module from xael.org:
+kali >w
+ge
+t ht
+tp
+://
+xa
+el
+.or
+g/
+norm
+a
+n
+/
+p
+y
+t
+h
+o
+n/
+p
+y
+t
+h
+o
+n-
+n
+m
+a
+p
+/
+p
+y
+t
+h
+o
+n
+-
+n
+m
+a
+p
+-
+0.
+3
+.
+4.t
+a
+r
+.
+g
+z
+­­2014­12­28 17:48:32­­ http://xael.org/norman/python/python­nmap/python­nmap­
+0.3.4.tar.gz
+Resolving xael.org (xael.org)...194.36.166.10
+Connecting to xael.org (xael.org)|194.36.166.10|:80...connected.
+­­s
+n
+i
+p
+­­
+2018­21­28 17.48:34 (113 KB/s) ­ 'python­nmap­0.3.4.tar.gz' saved
+[40307/40307]
+Here, you can see we use the wget command and the full URL for the package. After the
+package has downloaded, you need to uncompress it with tar , as you learned in Chapter
+9:
+kali >t
+ar -xz
+f pyt
+ho
+n-
+nma
+p-
+0.3.
+4
+.
+t
+a
+r
+.
+g
+z
+Then change directories to the newly created directory:
+kali >c
+d pyth
+on
+-nm
+ap
+-.
+03.
+4/
+Finally, in that directory, install the new module by entering the following:
+kali >~/python-nmap-0.3.4 >python setup.py install
+running install
+running build
+running build_py
+creating build
+­
+­­running install_egg_info
+writing /usr/local/lib/python2.7/dist­packages/python_nmap­0.3.4.egg.info
+Innumerable other modules can be obtained this way as well. Once you’ve installed this
+nmap module, you can use it in your Python scripts by importing the module. More on
+this later. Now let’s get started on some scripting.
+
+**getting start with pyhton
+Kali has the IDE 'PyCrust' built in(IDE for python)
+
+PyCharm is
+an excellent tool that will help you in your development.
+
+
+
+There are many ways to check the builtin functions. One is to look at the official Python documentation available at
+https://docs.python.org. Choose the version you are working with and then select
+Library Reference.
+
+
+
+Hackers use a technique known as banner
+grabbing to find out crucial information about what application or service is running
+on a port.
+
+
+
+We have just created a simple banner­grabbing Python script! We can use this script to
+find out what application, version, and operating system are running at that IP address
+and port. This gives us key information a hacker needs before attacking a system. This
+is essentially what the 'website Shodan.io' does for nearly every IP address on the planet,
+and it catalogs and indexes this information for us to search.
+
+
+
+
+
+
+
+
+"""#---------------------------------------------------------------------------
+			banner grapping technique
+                        -------------------------
+
+A banner is what an application presents when someone or something connects to it.
+It’s kind of like an application sending a greeting announcing what it is. 
+Hackers use a technique known as banner grabbing to find out crucial information 
+about what application or service is running on a port.
+
+# to build TCP client connection we need 'socket' model
+
+
+# we can use this script to find out what application, version, and operating 
+system are running at that IP address and port.
+
+
+""#------------------------------------------------------------------------------
+
+# srcipt start here
+# we import the socket module,so we can use its functions and tools.
+"""
+
